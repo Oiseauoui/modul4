@@ -5,24 +5,8 @@ function confirmDelete() {
         return false;
     }
 }
-(function ($) {
-    $(function () {
-        if (!$.cookie('smartCookies')) {
 
-            function getWindow() {
-                $('#boxUserFirstInfo').arcticmodal({
-                    closeOnOverlayClick: true,
-                    closeOnEsc: true
-                });
-                $.cookie('smartCookies', true, {
-                    expires: 7,
-                    path: '/'
-                });
-            };
-            setTimeout(getWindow, 7000);
-        }
-    })
-})(jQuery);
+(jQuery);
 
 $(function () {
     $("#search").keyup(function () {
@@ -43,8 +27,9 @@ $(function () {
     });
 });
 
+//реклама
 $('.col-sm-push-8 > .banner').attr('data-placement', 'left');
-$('.banner').tooltip();
+
 $('.banner').on({
     mouseenter: function () {
         var price = $(this).find('p > span');
@@ -92,7 +77,26 @@ $(document).ready(function () {
         );
     });
 });
-$(document).on('click', '.panel-footer #answer', function () {
+$(window).on('load', function() {
+    var hideTheModal = $.cookie('hideTheModal');
+    // если cookie не установлено...
+    if(hideTheModal == null){
+        // задержка 15 секунд
+        setTimeout(function(){
+            // вызвать модальное окно
+            $('#opn-win').modal();
+            // если кнопка "Закрыть" нажата
+            $('.close-modal').click(function(){
+                // добавить cookie
+                $.cookie('hideTheModal', { expires: 30 });
+            });
+        }, 15000);
+    }
+});
+
+
+//комментарии
+$(document).on('click', '.panel-footer #answer ', function () {
     var panel_info = $(this).closest('.panel');
     $(panel_info).after($('#comment_form'));
     $("button:reset").click(function () {
@@ -101,11 +105,11 @@ $(document).on('click', '.panel-footer #answer', function () {
 });
 
 $(document).ready(function () {
-    $(document).on('click', 'button#like', function () {
+    $(document).on('click', 'button#like ', function () {
         setVote('like', $(this));
     });
 
-    $(document).on('click', 'button#dislike', function () {
+    $(document).on('click', 'button#dislike ', function () {
         setVote('dislike', $(this));
     });
 
@@ -115,7 +119,7 @@ $(document).ready(function () {
 // element - кнопка, по которой кликнули
 function setVote(type, element) {
     // получение данных из полей
-    //var id_user = $('#id_user').val();
+    //var id_user = $('#id_user  ').val();
     var temp = element.parent();
     var id_comment = temp.find('#id_comment').val();
     var id_parent = temp.find('#id_parent').val();
@@ -162,16 +166,16 @@ function randomInteger(min, max) {
     return rand;
 }
 
-// $(document).ready(function () {
-//     $(window).on('beforeunload', function () {
-//         //document.write('<div>.....................</div>');  // HTML код в одну строчку!!!
-//         return "Вы точно решили покинуть наш сайт?";
-//     });
-//
-//     $('a').click(function () {
-//         $(window).off('beforeunload');
-//     });
-// });
+ $(document).ready(function () {
+     $(window).on('beforeunload', function () {
+         //document.write('<div>.....................</div>');  // HTML код в одну строчку!!!
+         return "Вы точно решили покинуть наш сайт?";
+   });
+
+  $('a').click(function () {
+      $(window).off('beforeunload');
+  });
+ });
 
 $(document).ready(function () {
     $('div> .nav>li>a').click(function () {
@@ -226,4 +230,3 @@ $('.controls form').on('submit', function (event) {
    }
 
 });
-

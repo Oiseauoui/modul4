@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-    <li><a href="/admin">Home</a></li>
+    <li><a href="/admin">Домашняя страница</a></li>
     <li class="active"><a href="/admin/<?=App::getRoutes()->getAction()?>"></a><?=App::getRoutes()->getAction()?></li>
 </ol>
 
@@ -33,7 +33,7 @@
                         <li><a href="/admin/settings/bg_site/">Изменить фон сайта и шапки</a></li>
                     </ul>
                 </li>
-                <li><a href="/admin/users/user_list/">Юзера</a></li>
+                <li><a href="/admin/users/user_list/">Пользователи</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-md-10">

@@ -1,6 +1,6 @@
 <?php if (!isset($data['news']['count'])): ?>
-    <div style="min-height: 300px;">
-        <h2 style="text-align: center;"><?= $data['title_news']; ?></h2>
+    <div class = "news">
+        <h2 class="news"><?= $data['title_news']; ?></h2>
         <div><?= $data['content_news']; ?></div>
         <?php if ($data['image_news']): ?>
             <div><img src="/webroot/image/<?= $data['image_news']; ?>"></div>
@@ -8,15 +8,15 @@
         <br/>
     </div>
     <?php if (isset($data['tags'])): ?>
-        <h3>Tags:</h3>
+        <h3>Тэги:</h3>
         <?php foreach ($data['tags'] as $key => $value): ?>
-            <a href="/news/tag/<?= $key; ?>"> <input type="button" class="btn btn-primary btn-xs"
-                                                     value="<?= $value; ?>"></a>
+            <a href="/news/tag/<?= $key; ?>">
+                <input type="button" class="btn btn-primary btn-xs"  value="<?= $value; ?>"></a>
         <?php endforeach; ?>
     <?php endif; ?>
     <div style="text-align: right;">Количество просмотров: <?= $data['cnt_visit']; ?> Читают:<span id="read"></span>
     </div>
-    <h3> Messages: <span class="badge"><?= $data['comments']['count']; ?></span></h3>
+    <h3> Сообщения: <span class="badge"><?= $data['comments']['count']; ?></span></h3>
     <?php if (Session::get('login')) : ?>
         <form method="post" id="comment_form" action="">
             <input type='hidden' id='id_news' value='<?= $data['id_news'] ?>'>
@@ -45,7 +45,7 @@
                 }
                 $result .= "<div class='panel-heading'>";
                 $result .= "<h3 class='panel-title'>";
-                $result .= "Написал: <a>{$value['login']}</a>";
+                $result .= "Написал: <a> {$value['login']}</a><br>";
                 $result .= "Дата\Время: {$value['date_time']} </h3> </div>";
                 $result .= "<div class='panel-body'>{$value['comment']}</div>";
                 $result .= "<div class='panel-footer' style='padding: 4px 15px; overflow: hidden;'>";
@@ -66,13 +66,11 @@
                      </button>";
                 $result .= "</div></div></div>";
                 if (isset($value['childs'])) {
-//                $result.="</div>";
                     $level++;
                     array_rec($value['childs'], $level);
 
                     $level = 0;
                 } else {
-//                $result.= "</div>";
                 }
             }
             return $result;
@@ -91,11 +89,15 @@
             <?php endforeach; ?>
         </ul>
     </div>
+
+
     <?php if (!isset($_GET['pages'])) $_GET['pages'] = 1; ?>
-    <ul class="pagination pagination-sm">
+    <ul class="pagination pagination-lg">
         <?php for ($j = 1; $j <= ($data['news']['count']); $j++) : ?>
             <li <?= ($j == $_GET['pages']) ? 'class=active' : ''; ?>><a
                     href="/news/list/?pages=<?= $j; ?>"><?= $j; ?></a></li>
         <?php endfor; ?>
     </ul>
+
+
 <?php endif; ?>

@@ -45,7 +45,7 @@
 </div>
 <br/>
 <?php if (!isset($_GET['pages'])) $_GET['pages'] = 1; ?>
-<ul class="pagination pagination-sm">
+<ul class="pagination pagination-lg">
     <?php for ($j = 1; $j <= ($data['comments']['count']); $j++) : ?>
         <li <?= ($j == $_GET['pages']) ? 'class=active' : ''; ?>><a
                 href="/admin/comments/comments_list/?pages=<?= $j; ?>"><?= $j; ?></a></li>

@@ -79,13 +79,13 @@
     <?php endforeach; ?>
     </tbody>
 </table>
-<h2>Top 3 Themes:</h2>
+<h2>Top 3 обсуждаемых темы:</h2>
 <table class="table table-striped"  width="400px">
     <thead>
     <tr>
         <th>№</th>
-        <th>Name:</th>
-        <th>Last date:</th>
+        <th>Название:</th>
+        <th>Дата:</th>
     </tr>
     </thead>
     <tbody>

@@ -11,7 +11,7 @@ class NewsController extends Controller
 
     public function list()
     {
-        
+
         $params = App::getRoutes()->getParams();
         if (isset($_GET['pages'])) {
             $page = $_GET['pages'] - 1;
@@ -19,21 +19,21 @@ class NewsController extends Controller
 
 
         $page = !isset($page) ? 0 : $page;
-        $this->data['news'] = $this->model->getNewsListByPage($page, 20);
-        if (isset($params)&& !isset($_GET['pages'])) {
+        $this->data['news'] = $this->model->getNewsListByPage($page, 5);
+        if (isset($params) && !isset($_GET['pages'])) {
             $id = $params[0];
             $this->data = $this->model->getNewsListById($id);
-            $this->model=new Comment();
-            $this->data['comments']=$this->model->get_comments($id);
-//            if(isset($_POST['submit'])&& isset($_POST['comment']) && !empty($_POST['comment'])){
-            if( isset($_POST['comment']) && !empty($_POST['comment'])){
-                $this->data['comments']=$this->model->add_comment(Session::get('login'),$id,$_POST['comment'],$_POST['id_parent']);
+
+            $this->model = new Comment();
+            $this->data['comments'] = $this->model->get_comments($id);
+
+            if (isset($_POST['comment']) && !empty($_POST['comment'])) {
+                $this->data['comments'] = $this->model->add_comment(Session::get('login'), $id, $_POST['comment'], $_POST['id_parent']);
                 Router::redirect("/news/list/{$id}");
             }
         }
 
-    }
-
+        }
     public function tag()
     {
         $params = App::getRoutes()->getParams();

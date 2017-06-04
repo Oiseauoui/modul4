@@ -4,53 +4,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Modul4</title>
+    <title>Четвертый модуль</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/webroot/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <!-- arcticModal -->
-    <script src="/webroot/js/articmodal_v0.3/jquery.arcticmodal-0.3.min.js"></script>
-    <link rel="stylesheet" href="/webroot/js/articmodal_v0.3/jquery.arcticmodal-0.3.css">
-    <!-- arcticModal theme -->
-    <link rel="stylesheet" href="/webroot/js/articmodal_v0.3/themes/dark.css">
-    <script src="/webroot/js/articmodal_v0.3/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="/webroot/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="/webroot/js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/webroot/js/script.js"></script>
+    <script src="/webroot/js/jquery-3.2.1.min.js"></script>
+
+    <script src="/webroot/js/jquery.modal.min.js"></script>
+    <script src="/webroot/js/jquery.cookie.min.js"></script>
+
 
 
 </head>
+
+<!--выполняться один раз при открытии страницы сайта-->
+
 <body style="background-color:<?= $data['config'][1]['value']; ?>">
 
-<div style="display: none;">
-
-
-    div class="popup_body">
+<div id="opn-win" style="display:none;" class="animated fadeInDown">
+    <br>
+    <form>
+        <input type="login" placeholder="Ваше имя">
+        <input type="email" placeholder="Ваш электронный адрес...">
+        <input type="submit" value="Подписаться">
+    </form>
 </div>
-<div class="popup">
-    <div class="popup_close">
-        X
-    </div>
-    <div class="popup_form">
-        <form action="" method="POST">
-            <input class="popup_inp" type="text" value="Ваше имя">
-            <br />
-            <input class="popup_inp" type="text" value="Почта">
-            <br />
-            <input class="popup_submit" type="submit" value="OK">
-        </form>
-    </div>
-</div>
-
 
 
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:<?= $data['config'][0]['value'] ?>">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                 aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only">Переключатель</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -82,11 +69,11 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <?php if (Session::get('login')): ?>
-                <li><a href="/">Hello <?= Session::get('login'); ?></a></li>
-                <li><a href="/users/logout/">Logout</a></li>
+                <li><a href="/">Добро пожаловать,  <?= Session::get('login'); ?></a></li>
+                <li><a href="/users/logout/">Выйти</a></li>
             <?php else : ?>
                 <li><a href="/users/register/">Register</a></li>
-                <li><a href="/users/login/">login</a></li>
+                <li><a href="/users/login/">Войти</a></li>
             <?php endif; ?>
         </ul>
         <form action="search.php" method="post" name="form" onsubmit="return false;"
@@ -115,7 +102,7 @@
                 <?php endif; ?>
                 <div class="banner" data-placement="right" data-toggle="tooltip"
                      title="Купон на скидку-1gjh12gj23jg3se.-Примените и получите 10% скидки">
-                    <p>Price : <span><?= $prom[$i]['price'] ?></span> грн.</p>
+                    <p>Цена : <span><?= $prom[$i]['price'] ?></span> грн.</p>
                     <p>Переходов : <?= $prom[$i]['cnt'] ?></p>
                     <p id="<?= $prom[$i]['id'] ?>">
                         <a href="<?= $prom[$i]['site'] ?>"><?= $prom[$i]['firm'] ?> <?= $prom[$i]['product_name'] ?></a>
@@ -142,6 +129,8 @@
     <?php include $this->path; ?>
     </div>
 <?php endif; ?>
+
+
 <?php include VIEW_PATH . DS . 'footer.php'; ?>
 </body>
 <script src="/webroot/js/main.js"></script>

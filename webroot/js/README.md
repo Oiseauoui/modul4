@@ -1,151 +1,53 @@
-# jquery.cookie [![Build Status](https://travis-ci.org/carhartl/jquery-cookie.png?branch=master)](https://travis-ci.org/carhartl/jquery-cookie) [![Code Climate](https://codeclimate.com/github/carhartl/jquery-cookie.png)](https://codeclimate.com/github/carhartl/jquery-cookie)
+#Subscribe Better by Pete R.
+Create a better, highly customizable subscription modal or newsletter signup window with jQuery Subscribe Better
 
-A simple, lightweight jQuery plugin for reading, writing and deleting cookies.
 
-**If you're viewing this at https://github.com/carhartl/jquery-cookie, you're reading the documentation for the master branch.
-[View documentation for the latest release (1.4.1).](https://github.com/carhartl/jquery-cookie/tree/v1.4.1)**
+Created by [Pete R.](http://www.thepetedesign.com), Founder of [Travelistly](http://www.travelistly.com) and [BucketListly](http://www.bucketlistly.com)
 
-## Build Status Matrix
+License: [Attribution-ShareAlike 4.0 International](http://creativecommons.org/licenses/by-sa/4.0/deed.en_US)
 
-[![Selenium Test Status](https://saucelabs.com/browser-matrix/jquery-cookie.svg)](https://saucelabs.com/u/jquery-cookie)
+[![Subscribe Better](http://www.thepetedesign.com/images/subscribe-better_image.png "Subscribe Better")](http://www.thepetedesign.com/demos/subscribe-better_demo.html)
 
-## Installation
 
-Include script *after* the jQuery library (unless you are packaging scripts somehow else):
+## Demo
+[View demo](http://www.thepetedesign.com/demos/subscribe-better.html)
 
-```html
-<script src="/path/to/jquery.cookie.js"></script>
-```
+## Compatibility
+Modern browsers such as Chrome, Firefox, and Safari on both desktop and mobile have been tested. Not tested on IE.
 
-**Do not include the script directly from GitHub (http://raw.github.com/...).** The file is being served as text/plain and as such being blocked
-in Internet Explorer on Windows 7 for instance (because of the wrong MIME type). Bottom line: GitHub is not a CDN.
+## Basic Usage
+To use this plugin, simply include the latest jQuery library (preferably version 2.0.0 or higher) together with `jquery.subscribe-better.js` and `subscribe-better.css` into your document's `<head>` follow by an HTML markup as follows:
 
-The plugin can also be loaded as AMD or CommonJS module.
+````html
+<body>
+  ..
+  <div class="subscribe-me">
+    <a href="#close" class="sb-close-btn">x</a>
+    ...
+  </div>
+  ..
+</body>
 
-## Usage
+````
 
-Create session cookie:
+Anything inside the `subscribe-me` container will be displayed as a modal window when the user scrolls down to the end of the page. This is where your newsletter signup form will situated. The `sb-close-btn` link act as a close button and it is optional. Now that the HTML is ready, simply call the function like this:
 
-```javascript
-$.cookie('the_cookie', 'the_value');
-```
 
-Create expiring cookie, 7 days from then:
+````javascript
+$(".subscribe-me").subscribeBetter({
+  trigger: "atendpage",       // You can choose which kind of trigger you want for the subscription modal to appear. Available triggers are "atendpage" which will display when the user scrolls to the bottom of the page, "onload" which will display once the page is loaded, and "onidle" which will display after you've scrolled.
+  animation: "fade",          // You can set the entrance animation here. Available options are "fade", "flyInRight", "flyInLeft", "flyInUp", and "flyInDown". The default value is "fade".
+  delay: 0,                   // You can set the delay between the trigger and the appearance of the modal window. This works on all triggers. The value should be in milliseconds. The default value is 0.
+  showOnce: true,             // Toggle this to false if you hate your users. :)
+  autoClose: false,           // Toggle this to true to automatically close the modal window when the user continue to scroll to make it less intrusive. The default value is false.
+  scrollableModal: false      //  If the modal window is long and you need the ability for the form to be scrollable, toggle this to true. The default value is false.
+});
 
-```javascript
-$.cookie('the_cookie', 'the_value', { expires: 7 });
-```
+````
 
-Create expiring cookie, valid across entire site:
+Now you will have full control over how your subscription window displays to your viewers. Remarks: I hate websites that do this but if you insist on doing it, then at least use this plugin to better time the appearance of your modal window without disturbing your users.
 
-```javascript
-$.cookie('the_cookie', 'the_value', { expires: 7, path: '/' });
-```
+If you want to see more of my plugins, visit [The Pete Design](http://www.thepetedesign.com/#plugins), or follow me on [Twitter](http://www.twitter.com/peachananr) and [Github](http://www.github.com/peachananr).
 
-Read cookie:
-
-```javascript
-$.cookie('the_cookie'); // => "the_value"
-$.cookie('not_existing'); // => undefined
-```
-
-Read all available cookies:
-
-```javascript
-$.cookie(); // => { "the_cookie": "the_value", "...remaining": "cookies" }
-```
-
-Delete cookie:
-
-```javascript
-// Returns true when cookie was found, false when no cookie was found...
-$.removeCookie('the_cookie');
-
-// Same path as when the cookie was written...
-$.removeCookie('the_cookie', { path: '/' });
-```
-
-*Note: when deleting a cookie, you must pass the exact same path, domain and secure options that were used to set the cookie, unless you're relying on the default options that is.*
-
-## Configuration
-
-### raw
-
-By default the cookie value is encoded/decoded when writing/reading, using `encodeURIComponent`/`decodeURIComponent`. Bypass this by setting raw to true:
-
-```javascript
-$.cookie.raw = true;
-```
-
-### json
-
-Turn on automatic storage of JSON objects passed as the cookie value. Assumes `JSON.stringify` and `JSON.parse`:
-
-```javascript
-$.cookie.json = true;
-```
-
-## Cookie Options
-
-Cookie attributes can be set globally by setting properties of the `$.cookie.defaults` object or individually for each call to `$.cookie()` by passing a plain object to the options argument. Per-call options override the default options.
-
-### expires
-
-    expires: 365
-
-Define lifetime of the cookie. Value can be a `Number` which will be interpreted as days from time of creation or a `Date` object. If omitted, the cookie becomes a session cookie.
-
-### path
-
-    path: '/'
-
-Define the path where the cookie is valid. *By default the path of the cookie is the path of the page where the cookie was created (standard browser behavior).* If you want to make it available for instance across the entire domain use `path: '/'`. Default: path of page where the cookie was created.
-
-**Note regarding Internet Explorer:**
-
-> Due to an obscure bug in the underlying WinINET InternetGetCookie implementation, IE’s document.cookie will not return a cookie if it was set with a path attribute containing a filename.
-
-(From [Internet Explorer Cookie Internals (FAQ)](http://blogs.msdn.com/b/ieinternals/archive/2009/08/20/wininet-ie-cookie-internals-faq.aspx))
-
-This means one cannot set a path using `path: window.location.pathname` in case such pathname contains a filename like so: `/check.html` (or at least, such cookie cannot be read correctly).
-
-### domain
-
-    domain: 'example.com'
-
-Define the domain where the cookie is valid. Default: domain of page where the cookie was created.
-
-### secure
-
-    secure: true
-
-If true, the cookie transmission requires a secure protocol (https). Default: `false`.
-
-## Converters
-
-Provide a conversion function as optional last argument for reading, in order to change the cookie's value
-to a different representation on the fly.
-
-Example for parsing a value into a number:
-
-```javascript
-$.cookie('foo', '42');
-$.cookie('foo', Number); // => 42
-```
-
-Dealing with cookies that have been encoded using `escape` (3rd party cookies):
-
-```javascript
-$.cookie.raw = true;
-$.cookie('foo', unescape);
-```
-
-You can pass an arbitrary conversion function.
-
-## Contributing
-
-Check out the [Contributing Guidelines](CONTRIBUTING.md)
-
-## Authors
-
-[Klaus Hartl](https://github.com/carhartl)
+## Other Resources
+- Tutorial (Coming Soon)

@@ -124,7 +124,9 @@ class Newss extends Model
         return $content .= ' <a href="/users/login/">Зарегистрироваться...</a>';
     }
 
-    public function getNewsListByTagId($id, $page = 0, $limit = 10)
+    //Отображаем количество найденных тэгов
+
+    public function getNewsListByTagId($id, $page = 0, $limit = 5)
     {
         $start = $page * $limit;
         $sql = "select n.*,t1.id_tag,t1.tag_name from news n
@@ -135,6 +137,7 @@ class Newss extends Model
         //$result['count'] = $this->getCountPages($limit,'tags');
         return ($result);
     }
+
 
     public function getNewsByFilter($data)
     {
@@ -167,33 +170,39 @@ class Newss extends Model
             $data['category'] = substr($tmp, 0, -1);
             $sql .= " and n.id_category in({$data['category']})";
         }
-//        echo "<br><br>";
-//        echo $sql;
         return $this->db->query($sql);
     }
 
-    public function getCategoryList()
+    public function getCategoryList($page = 0, $limit = 5)
     {
-        $sql = "SELECT * FROM category ";
-        $result = $this->db->query($sql);
-        for ($i = 0; $i < count($result); $i++) {
-            $results[$result[$i]['id_category']] = $result[$i]['category_name'];
+        $start = $page * $limit;
+        { $sql = "SELECT * FROM category limit {$start},{$limit}";
+            $result = $this->db->query($sql);
+            for ($i = 0; $i < count($result); $i++) {
+                $results[$result[$i]['id_category']] = $result[$i]['category_name'];
+                $result['count'] = $this->getCountPages($limit);
+
+            }
+            //echo "<pre>";print_r($results);exit;
+            return $results;
         }
-        //echo "<pre>";print_r($results);exit;
-        return $results;
     }
+    // Выводим новости к категориям по 5 в столбец
 
-    public function getCategoryById($id)
+    public function getCategoryById($id, $page =0,  $limit = 5)
     {
-        $id = (int)$id;
-        $sql = "select * from news n
+        $start =  $page*$limit;
+        {  $id = (int)$id;
+            $sql = "select * from news n
                 left join category c on c.id_category=n.id_category 
-                where c.id_category={$id}";
-        $result = $this->db->query($sql);
-        //echo "<pre>";print_r($result);exit;
+                where c.id_category={$id} order by date_news desc limit {$start},{$limit} ";
+            $result = $this->db->query($sql);
+            $result['count'] = $this->getCountPages($limit);
+            return ($result);
+            //echo "<pre>";print_r($result);exit;
 
-        return $result;
-        // return isset($result[0]) ? ($result[0]) : null;
+
+        }
     }
 
     public function admin_add_category($categories_name)
@@ -221,7 +230,9 @@ class Newss extends Model
         }
     }
 
-    public function getNewsListByPage($page = 0, $limit = 10)
+
+
+    public function getNewsListByPage($page = 0, $limit = 5)
     {
         $start = $page * $limit;
         $sql = "select n.*,category_name from news n
@@ -234,6 +245,8 @@ class Newss extends Model
         $result['count'] = $this->getCountPages($limit);
         return ($result);
     }
+
+
 
     public function move_uploaded_file($file)
     {
