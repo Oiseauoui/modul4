@@ -81,10 +81,10 @@
     }
     ?>
 <?php else: ?>
-    <div style="min-height: 200px; margin-top: 35px;">
+    <div>
         <h3>Список Новостей:</h3>
         <ul class="list-unstyled">
-            <?php foreach ($data['news'] as $key => $value): ?>
+            <?php foreach ($data['news'] as  $value): ?>
                 <li><a href="/news/list/<?= $value['id_news']; ?>"><?= $value['title_news']; ?> </a></li>
             <?php endforeach; ?>
         </ul>

@@ -25,10 +25,12 @@ class IndexController extends Controller
     {
         $this->data = $this->model->getListIndex();
         $this->model = new Comment;
-        $this->data['commentator']=$this->model->top_commentators(5);
+        $this->data['commentator']=$this->model->top_commentators( 5);
         $this->data['themes']=$this->model->getThemes(3);
+
+
     }
-   
+
 
     public function admin_list()
     {
@@ -36,6 +38,6 @@ class IndexController extends Controller
             $page = $_GET['pages'] - 1;
         }
         $page = !isset($page) ? 0 : $page;
-        $this->data = $this->model->getNewsListByPage($page, 10);
+        $this->data = $this->model->getNewsListByPage($page, 6);
     }
 }

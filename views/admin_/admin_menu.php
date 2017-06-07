@@ -29,7 +29,7 @@
                 </li>
                 <li><a>Меню<span class="glyphicon glyphicon-chevron-down"></span></a>
                     <ul class="tt nav nav-pills nav-stacked">
-                        <li><a href="/admin/settings/nav_menu/">Редактировать меню</a></li>
+                       <!-- <li><a href="/admin/settings/nav_menu/">Редактировать меню</a></li>-->
                         <li><a href="/admin/settings/bg_site/">Изменить фон сайта и шапки</a></li>
                     </ul>
                 </li>

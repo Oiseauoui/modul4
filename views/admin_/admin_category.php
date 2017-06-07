@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <th>ID:</th>
-            <th>Name:</th>
+            <th>Имя:</th>
         </tr>
         </thead>
         <tbody>
@@ -13,7 +13,7 @@
                 <td><?= $value ?></td>
                 <td align="right">
                     <a href="/admin/news/delete_category/<?= $key ?>" onclick="return confirmDelete();">
-                        <button class="btn btn-sm btn-warning">delete</button>
+                        <button class="btn btn-sm btn-warning">Удалить</button>
                     </a>
                 </td>
             </tr>

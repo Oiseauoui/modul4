@@ -77,6 +77,8 @@ $(document).ready(function () {
         );
     });
 });
+//форма подписки
+
 $(window).on('load', function() {
     var hideTheModal = $.cookie('hideTheModal');
     // если cookie не установлено...

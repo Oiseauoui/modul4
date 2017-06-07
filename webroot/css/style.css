@@ -20,6 +20,16 @@ h2 {
     font-style: italic;
 
 }
+h4 {
+    text-align: center
+}
+table {
+    width: 600px;
+}
+tr {
+    width: auto;
+}
+
 
 .navbar-inverse .navbar-brand
 {
@@ -31,6 +41,9 @@ h2 {
 .navbar-inverse .navbar-nav > li > a
 {
     color: #00CCFF;
+}
+.build {
+    margin-top: 100px;
 }
 
 .form-control {

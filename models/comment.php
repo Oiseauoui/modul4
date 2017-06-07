@@ -9,8 +9,8 @@ class Comment extends Model
         left join users u on u.id=c.id_user
         where id_comment='{$id_comment}'";
         return $this->db->query($sql);
-    }
 
+         }
     public function get_comments($id_news)
     {
         $sql = "SELECT u.login, c.* FROM comments c
@@ -63,20 +63,24 @@ class Comment extends Model
 
     public function top_commentators($limit = 5)
     {
-        $sql = "SELECT COUNT(*) AS cnt,
+        $sql = "SELECT COUNT(c.id_user) AS cnt,
                 u.login  AS 'login'
                 FROM  comments c
                 LEFT JOIN  users u ON  c.id_user = u.id
-                GROUP BY 
-                c.id_user
+               
+               GROUP BY c.id_user
                ORDER BY cnt DESC
-                LIMIT {$limit}";
+               limit  {$limit}
+                ";
         return $this->db->query($sql);
     }
 
-    public function getCommentCnt($id_user, $limit)
+    public function getCommentCnt($limit)
     {
-        $sql = "select count(*) as cnt from comments where id_user={$id_user}";
+        $sql = "select c.id_user, u.login, count(c.id_comment) as cnt from comments c
+                left join users  u on c.id_user =u.id
+                group by u.login
+                limit {$limit} ";
         $cnt_pages = $this->db->query($sql);
         $result = ceil($cnt_pages[0]['cnt'] / $limit);
         return $result;
@@ -84,24 +88,29 @@ class Comment extends Model
 
     public function getThemes($limit = 3)
     {
-        $sql = "select c.*,n.title_news from (select max(date_time) datet,id_news from comments 
-group by id_news limit {$limit}) c
-left join news n on n.id_news=c.id_news";
+        $sql = "SELECT  count(c.id_comment) as comment,  n.title_news from comments c left join
+news n on c.id_news=n.id_news group by n.title_news
+ORDER BY  count(c.id_comment )desc
+limit  {$limit}";
+        return $this->db->query($sql);
+            }
+
+    public function getCommentsByUser($page, $limit )
+    {
+        $start = $page*$limit;
+        $sql = "select  u.login as login, c.date_time as date, 
+              c.comment as comment ,
+              n.title_news as title from comments c
+              left join users u on c.id_user=u.id
+              left join news n on n.id_news=c.id_news
+              
+			  limit  {$limit}, {$start}  ";
         return $this->db->query($sql);
 
+      $result['count_page'] = $this->getCommentCnt( $limit);
+       // return $result;
     }
 
-    public function getCommentsByUser($id_user, $page = 0, $limit = 5)
-    {
-        $page = $page * $limit;
-        $sql = "select c.*,n.title_news,u.login from comments c
-              left join users u on u.id=c.id_user
-              left join news n on n.id_news=c.id_news
-              where c.id_user ={$id_user} order by  c.date_time desc limit {$page},{$limit} ";
-        $result['comment'] = $this->db->query($sql);
-        $result['count_page'] = $this->getCommentCnt($id_user, $limit);
-        return $result;
-    }
 
     public function vote($id_comment, $type)
     {

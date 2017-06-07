@@ -19,7 +19,7 @@ class NewsController extends Controller
 
 
         $page = !isset($page) ? 0 : $page;
-        $this->data['news'] = $this->model->getNewsListByPage($page, 5);
+        $this->data['news'] = $this->model->getNewsListByPage($page, 7);
         if (isset($params) && !isset($_GET['pages'])) {
             $id = $params[0];
             $this->data = $this->model->getNewsListById($id);
@@ -34,6 +34,23 @@ class NewsController extends Controller
         }
 
         }
+    public function theme()
+    {
+        $params = App::getRoutes()->getParams();
+        if (isset($params) ) {
+            $id = $params[0];
+            $this->data ['news'] = $this->model->getNewsListById($id);
+
+            $this->model = new Comment();
+            $this->data['comments'] = $this->model->get_comments($id);
+
+            if (isset($_POST['comment']) && !empty($_POST['comment'])) {
+                $this->data['comments'] = $this->model->add_comment(Session::get('login'), $id, $_POST['comment'], $_POST['id_parent']);
+                Router::redirect("/news/list/{$id}");
+            }
+        }
+    }
+
     public function tag()
     {
         $params = App::getRoutes()->getParams();
@@ -162,7 +179,7 @@ class NewsController extends Controller
             $page = $_GET['pages'] - 1;
         }
         $page = !isset($page) ? 0 : $page;
-        $this->data = $this->model->getNewsListByPage($page, 10);
+        $this->data = $this->model->getNewsListByPage($page, 8);
     }
     
     public function admin_delete_category()

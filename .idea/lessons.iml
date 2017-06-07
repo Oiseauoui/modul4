@@ -16,5 +16,15 @@
     </orderEntry>
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="module-library">
+      <library name="PHARS">
+        <CLASSES>
+          <root url="phar://$MODULE_DIR$/xdebug/tests/bug00886.phar/" />
+        </CLASSES>
+        <SOURCES>
+          <root url="phar://$MODULE_DIR$/xdebug/tests/bug00886.phar/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -11,19 +11,18 @@ class CategoryController extends Controller
     {
 
         $params = App::getRoutes()->getParams();
-        if (isset($params)) {
-            $id = $params[0];
-            $this->data['category'] = $this->model->getCategoryById($id);
-        } else {
-            $this->data['category_list'] = $this->model->getCategoryList();
-        }
+        $page = 0;
         if (isset($_GET['pages'])) {
             $page = $_GET['pages'] - 1;
         }
+        if (isset($params)) {
+            $id = $params[0];
+            $this->data['category'] = $this->model->getCategoryById($id, $page);
+        } else {
+            $this->data['category_list'] = $this->model->getCategoryList($page);
+        }
 
 
-        $page = !isset($page) ? 0 : $page;
-        $this->data['news'] = $this->model->getCategoryList($page, 5);
-    }
-
+        }
 }
+

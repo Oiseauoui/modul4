@@ -15,18 +15,20 @@
                     <a href="/news/list/<?= $data['category'][$i]['id_news']; ?>"><?= $data['category'][$i]['title_news']; ?></a>
                 </li>
             </ul>
+
         <?php endfor; ?>
 
-    <?php endif; ?>
 </div>
 
-
-<?php if (!isset($_GET['pages'])) $_GET['pages'] = 1; ?>
+<?php
+if (!isset($_GET['pages'])) $_GET['pages'] = 1; ?>
 <ul class="pagination pagination-lg">
     <?php for ($j = 1; $j <= ($data['category']['count']); $j++) : ?>
-        <li <?= ($j == $_GET['pages']) ? 'class=active' : ''; ?>><a
-                    href="/category/list/?pages=<?= $j; ?>"><?= $j; ?></a></li>
+        <li <?= ($j == $_GET['pages']) ? 'class=active' : ''; ?>>
+            <a href="/category/list/?pages=<?= $j; ?>"><?= $j; ?></a></li>
+
     <?php endfor; ?>
 </ul>
+<?php endif; ?>
 
 

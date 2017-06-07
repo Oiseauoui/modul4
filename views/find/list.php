@@ -8,7 +8,7 @@
             <label for="date">date:</label>
             <input type="date" class="form-control" name="date_do" id="date" placeholder="date">
         </div>
-        <h2>News Tags:</h2>
+        <h2>Новые теги:</h2>
         <?php foreach ($data['tags'] as $key => $tag) : ?>
             <div class="checkbox">
                 <label>
@@ -16,7 +16,7 @@
                 </label>
             </div>
         <?php endforeach; ?>
-        <h2>News Category:</h2>
+        <h2>Новые категории:</h2>
         <?php foreach ($data['category'] as $key => $category) : ?>
             <div class="checkbox">
                 <label>

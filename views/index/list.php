@@ -22,7 +22,7 @@
         <?php if ($cnt == 5) break; ?>
         <li>
             <a href="/news/list/<?= $value['id_news']; ?>">
-                <div><h4 style="text-align: center"><?= $value['title_news']; ?></h4>
+                <div><h4><?= $value['title_news']; ?></h4>
                 <img src="/webroot/image/<?= $value['image_news']; ?>">
             </a>
 </div>
@@ -32,6 +32,7 @@
 </ul>
 </div>
 
+<!--слайдеры-->
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -60,41 +61,43 @@
         return false;
     });
 </script>
-<h2>Top 5 commentators:</h2>
-<table class="table table-striped"  width="400px">
+<h2>Top 5 комментаторов:</h2>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>№</th>
-        <th>Name:</th>
-        <th>Count comments:</th>
+        <th>Имя:</th>
+        <th>Кол-во:</th>
     </tr>
     </thead>
     <tbody>
     <?php $i=1;foreach ($data['commentator'] as $commentator): ?>
         <tr>
             <td><?=$i++?></td>
-            <td><a href="/comments/show/<?=$commentator['id_user']?>"><?=$commentator['login']?></a></td>
+            <td><a href="/comments/list/<?=$commentator['id_user']?>"><?=$commentator['login']?></a></td>
             <td><?=$commentator['cnt']?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach;?>
     </tbody>
 </table>
 <h2>Top 3 обсуждаемых темы:</h2>
-<table class="table table-striped"  width="400px">
+<div>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>№</th>
         <th>Название:</th>
-        <th>Дата:</th>
+        <th>Кол-во комментариев:</th>
     </tr>
     </thead>
     <tbody>
-    <?php $i=1;foreach ($data['themes'] as $theme): ?>
+    <?php $i=1;foreach ($data['themes'] as  $theme): ?>
         <tr>
             <td><?=$i++?></td>
-            <td><a href="/news/list/<?=$theme['id_news']?>"><?=$theme['title_news']?></a></td>
-            <td><?=$theme['datet']?></td>
+            <td><a href="/news/theme/<?=$theme['id_news']?>"><?=$theme['title_news']?></a></td>
+            <td><?=$theme['comment']?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
-</table>
+    </table>
+</div>

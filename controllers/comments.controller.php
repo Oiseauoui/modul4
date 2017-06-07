@@ -8,8 +8,9 @@ class CommentsController extends Controller
         $this->model = new Comment();
     }
 
-    public function show()
+    public function list()
     {
+
         $params = App::getRoutes()->getParams();
         $page = 0;
         if (isset($_GET['pages'])) {
@@ -17,9 +18,12 @@ class CommentsController extends Controller
         }
         if (isset($params)) {
             $id = $params[0];
-            $this->data = $this->model->getCommentsByUser($id, $page);
+            $this->data ['comment']= $this->model->getCommentsByUser($id, $page);
         }
     }
+
+
+
 
     public function admin_delete_comment()
     {

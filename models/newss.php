@@ -173,7 +173,7 @@ class Newss extends Model
         return $this->db->query($sql);
     }
 
-    public function getCategoryList($page = 0, $limit = 5)
+    public function getCategoryList($page = 0, $limit = 10)
     {
         $start = $page * $limit;
         { $sql = "SELECT * FROM category limit {$start},{$limit}";
@@ -183,25 +183,23 @@ class Newss extends Model
                 $result['count'] = $this->getCountPages($limit);
 
             }
-            //echo "<pre>";print_r($results);exit;
+
             return $results;
         }
     }
     // Выводим новости к категориям по 5 в столбец
 
-    public function getCategoryById($id, $page =0,  $limit = 5)
+    public function getCategoryById($id, $page =0,  $limit =5)
     {
-        $start =  $page*$limit;
+        $start =  $page * $limit;
         {  $id = (int)$id;
             $sql = "select * from news n
                 left join category c on c.id_category=n.id_category 
                 where c.id_category={$id} order by date_news desc limit {$start},{$limit} ";
             $result = $this->db->query($sql);
             $result['count'] = $this->getCountPages($limit);
+
             return ($result);
-            //echo "<pre>";print_r($result);exit;
-
-
         }
     }
 

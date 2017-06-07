@@ -21,7 +21,7 @@
 
 <!--выполняться один раз при открытии страницы сайта-->
 
-<body style="background-color:<?= $data['config'][1]['value']; ?>">
+<style="background-color:<?= $data['config'][1]['value']; ?>">
 
 <div id="opn-win" style="display:none;" class="animated fadeInDown">
     <br>
@@ -90,6 +90,7 @@
 </nav>
 <br>
 <?php if (App::getRoutes()->getMethodPrefix() == null): ?>
+<div class="build">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2">
@@ -122,6 +123,7 @@
             </div>
         </div>
     </div>
+</div>
 <?php elseif (Session::get('login') == 'admin'): ?>
     <?php include VIEW_PATH . DS . App::getRoutes()->getMethodPrefix() . DS . 'admin_menu.php'; ?>
 <?php else : ?>
